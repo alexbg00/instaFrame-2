@@ -14,7 +14,7 @@ use App\Models\Image;
 */
 
 Route::get('/', function () {
-    $images = Image::all();
+/*     $images = Image::all();
     foreach($images as $image){
         echo $image->image_path."<br>";
         echo $image->description."<br>";
@@ -31,7 +31,7 @@ Route::get('/', function () {
         echo "<br>";
 
     }
-    die();
+    die(); */
 
     return view('welcome');
 
