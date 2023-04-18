@@ -55,10 +55,8 @@
                                 </li>
                             @endif
                         @else
-                        <li class="nav-item">
-                            <a href="{{ route('home') }}" class="nav-link">Inicio</a>
-                        </li>
-                        <li class="nav-item">
+                        <li>
+                            <a href="">Inicio</a>
                             <a href="">Subir Imagen</a>
                         </li>
                             <li class="nav-item dropdown">
@@ -67,16 +65,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">
-                                            Mi Perfil
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="">
-                                            Configaración
-                                        </a>
-                                    </li>
+
+                                    <a class="dropdown-item" href="">Mi perfil</a>
+                                    <a class="dropdown-item" href="">Configarion</a>
+
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -86,9 +79,6 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-
-
-
                                 </div>
                             </li>
                         @endguest
