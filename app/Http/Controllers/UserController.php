@@ -18,7 +18,7 @@ class UserController extends Controller
             'surname' => 'required|string|max:255',
             /* el nick puede ser el mismo pero debe ser unico */
             'nick' => 'required|string|max:255|unique:users,nick,'.\Auth::user()->id,
-            'email' => 'required|string|email|max:255|unique:users,email'
+            'email' => 'required|string|email|max:255|unique:users,email' . \Auth::user()->id
         ]);
 
         $id = \Auth::user()->id;
