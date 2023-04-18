@@ -9,7 +9,7 @@
                 <div class="card-header">Configuracion de mi cuenta</div>
 
                 <div class="card-body">
-                    <form method="POST" action="" aria-label="Configuracion de mi cuenta">
+                    <form method="POST" action="{{ route('user.update') }}" aria-label="Configuracion de mi cuenta">
                         @csrf
 
                         <div class="row mb-3">
