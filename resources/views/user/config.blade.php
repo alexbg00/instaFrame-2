@@ -84,7 +84,7 @@
                             <label for="image_path" class="col-md-4 col-form-label text-md-end">{{ __('Avatar') }}</label>
 
                             <div class="col-md-6">
-                                <input id="image_path" type="file" class="form-control @error('Avatar') is-invalid @enderror" required>
+                                <input id="image_path" type="file" class="form-control @error('Avatar') is-invalid @enderror" name="image_path" required>
 
                                 @error('image_path')
                                     <span class="invalid-feedback" role="alert">
