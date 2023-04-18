@@ -11,7 +11,7 @@
                     {{ session('message') }}
                 </div>
             @endif
-            
+
             <div class="card">
                 <div class="card-header">Configuracion de mi cuenta</div>
 
@@ -70,9 +70,23 @@
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required>
 
                                 @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="image_path" class="col-md-4 col-form-label text-md-end">{{ __('Avatar') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="image_path" type="file" class="form-control @error('email') is-invalid @enderror" name="email" required>
+
+                                @error('image_path')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
