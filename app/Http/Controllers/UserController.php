@@ -16,8 +16,8 @@ class UserController extends Controller
         $validate = $this->validate($request, [
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
-            'nick' => 'required|string|max:255|unique:users,nick,'.\Auth::user()->id,
-            'email' => 'required|string|email|max:255|unique:users,email', \Auth::user()->id
+            'nick' => 'required|string|max:255|unique:users,nick,',
+            'email' => 'required|string|email|max:255|unique:users,email'
         ]);
 
         $id = \Auth::user()->id;
