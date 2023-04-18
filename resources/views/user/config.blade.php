@@ -80,11 +80,11 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+{{--                         <div class="row mb-3">
                             <label for="image_path" class="col-md-4 col-form-label text-md-end">{{ __('Avatar') }}</label>
 
                             <div class="col-md-6">
-                                <input id="image_path" type="file" class="form-control @error('email') is-invalid @enderror" name="email" required>
+                                <input id="image_path" type="file" class="form-control @error('Avatar') is-invalid @enderror" name="email" required>
 
                                 @error('image_path')
                                     <span class="invalid-feedback" role="alert">
@@ -92,7 +92,7 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
