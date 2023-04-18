@@ -55,9 +55,11 @@
                                 </li>
                             @endif
                         @else
-                        <li>
-                            <a href="">Inicio</a>
-                            <a href="">Subir Imagen</a>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">Subir Imagen</a>
                         </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -67,7 +69,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item" href="">Mi perfil</a>
-                                    <a class="dropdown-item" href="">Configarion</a>
+                                    <a class="dropdown-item" href="{{ route('config') }}">Configuracion</a>
 
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
