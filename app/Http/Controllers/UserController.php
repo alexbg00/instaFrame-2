@@ -12,6 +12,11 @@ class UserController extends Controller
     }
 
     public function update(Request $request){
+
+                /* subir la image */
+                $image_path = $request->file('image_path');
+                var_dump($image_path);
+                die();
         /* Conseguir el usuario identificado */
         $user = \Auth::user();
         $id = $user->id;
@@ -39,6 +44,8 @@ class UserController extends Controller
         $user->surname = $surname;
         $user->nick = $nick;
         $user->email = $email;
+
+
 
         /* Ejecutar consulta y cambios en la base de datos */
         $user->update();
