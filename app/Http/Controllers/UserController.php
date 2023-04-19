@@ -58,14 +58,13 @@ class UserController extends Controller
                     /* Seteo el nombre de la imagen en el objeto */
                     $user->image = $image_path_name;
 
+                    /* convertir en base 64 */
                     $image = Storage::disk('users')->get($image_path_name);
                     $image = base64_encode($image);
                     $user->image = $image;
                 }
         /* Ejecutar consulta y cambios en la base de datos */
         $user->update();
-
-        /* convertir en base 64 */
 
 
         return redirect()->route('config')->with(['message' => 'Usuario actualizado correctamente']);
