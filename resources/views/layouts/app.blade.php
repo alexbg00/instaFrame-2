@@ -61,6 +61,11 @@
                         <li class="nav-item">
                             <a href="" class="nav-link">Subir Imagen</a>
                         </li>
+                        <li>
+                            
+                            <img src="data:image/png;base64,{{ Auth::user()->image }}" style="width: 3em; height:3em; border-radius:900px; overflow:hidden"
+                                                                                        class="img-fluid img-thumbnail">
+                        </l1>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -73,8 +78,8 @@
 
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
