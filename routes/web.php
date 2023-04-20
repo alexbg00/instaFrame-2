@@ -14,24 +14,7 @@ use App\Models\Image;
 */
 
 Route::get('/', function () {
-/*     $images = Image::all();
-    foreach($images as $image){
-        echo $image->image_path."<br>";
-        echo $image->description."<br>";
-        echo $image->user->name.' '.$image->user->surname."<br>";
 
-        echo "<h4>Comentarios</h4>";
-        foreach($image->comments as $comment){
-            echo $comment->user->name.' '.$comment->user->surname.': ';
-            echo $comment->content."<br>";
-        }
-
-        echo "<h4>Likes</h4>";
-        echo 'LIKE: '.count($image->likes);
-        echo "<br>";
-
-    }
-    die(); */
 
     return view('welcome');
 
@@ -43,3 +26,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/configuracion', [App\Http\Controllers\UserController::class, 'config'])->name('config');
 Route::post('/user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
 Route::get('/user/avatar/{filename}', [App\Http\Controllers\UserController::class, 'getImage'])->name('user.avatar');
+Route::get('/subir-imagen', [App\Http\Controllers\ImageController::class, 'create'])->name('image.create');
+Route::post('/image/save', [App\Http\Controllers\ImageController::class, 'save'])->name('image.save');
+Route::get('/image/file/{filename}', [App\Http\Controllers\ImageController::class, 'getImage'])->name('image.file');
+

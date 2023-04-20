@@ -56,13 +56,13 @@
                             @endif
                         @else
                         <li class="nav-item">
-                            <a href="" class="nav-link">Inicio</a>
+                            <a href="{{ route('home') }}" class="nav-link">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">Subir Imagen</a>
+                            <a href="{{ route('image.create') }}" class="nav-link">Subir Imagen</a>
                         </li>
                         <li>
-                            
+
                             <img src="data:image/png;base64,{{ Auth::user()->image }}" style="width: 3em; height:3em; border-radius:900px; overflow:hidden"
                                                                                         class="img-fluid img-thumbnail">
                         </l1>
