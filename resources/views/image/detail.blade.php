@@ -4,18 +4,16 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            @foreach ($images as $image)
+        <div class="col-md-10">
             <div class="card" style="margin-bottom: 30px">
                 <div class="card-header">
                     <p style="font-weight:bold ">
                         <img src="data:image/png;base64,{{ $image->user->image }}"
                             style="width: 3em; height:3em; border-radius:900px; overflow:hidden"
                             class="img-fluid img-thumbnail">
-                        <a href="{{ route('image.detail', ['id' => $image->id]) }}" style="color: #444; text-decoration: none">
+
                         {{ $image->user->name." " . $image->user->surname." | @". $image->user->nick }}
                     </p>
-                        </a>
                     <div class="card-body">
                         <img src="data:image/png;base64,{{ $image->image_path }}"
                             style="max-height:400px; overflow:hidden; width:100%; " class="img-fluid img-thumbnail">
@@ -37,14 +35,6 @@
                     </a>
                 </div>
             </div>
-            @endforeach
-
-    </div>
-    {{-- poner paginacion con estilos --}}
-    <div class="clearfix"></div>
-    {{ $images->links() }}
-    {{-- traducir al español el paginate --}}
-
 
 </div>
 
