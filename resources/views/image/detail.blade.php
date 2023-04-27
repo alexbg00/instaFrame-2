@@ -5,6 +5,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
+            @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
             <div class="card" style="margin-bottom: 30px">
                 <div class="card-header" >
                 <div>
@@ -36,13 +41,19 @@
  --}}                        <h2 style="margin: 20px">Comentarios ({{ count($image->comments) }})</h2><hr>
 
                     <div style="padding: 20px">
-                        <form method="POST" action="" >
+                        <form method="POST" action="{{ route('comment.save') }}" >
                             @csrf
 
                             <input type="hidden" name="image_id" value="{{ $image->id }}"/>
                             <p>
                                 <textarea class="form-control" name="content" required></textarea>
+                                @if($errors->has('content'))
+                                    <span  role="alert">
+                                        <strong>{{ $errors->first('content') }}</strong>
+                                    </span>
+                                @endif
                             </p>
+
                             <button type="submit" class="btn btn-success">
                                 Enviar
                             </button>
