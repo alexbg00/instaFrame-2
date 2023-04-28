@@ -18,6 +18,7 @@ class commentController extends Controller
             'content' => ['string', 'required'],
         ]);
 
+
         // Recoger datos
         $user = \Auth::user();
         $image_id = $request->input('image_id');
