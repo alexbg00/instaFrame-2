@@ -28,7 +28,24 @@
                     </div>
 
                     <div class="likes" style="float:left; padding-left:20px; padding:right:10px ">
-                        <img style="width:20px" src="{{ asset('icons/heart-gris.png') }}">
+                        <?php $user_like = false; ?>
+
+                        @foreach ($image->likes as $like)
+
+                            @if($like->user->id == Auth::user()->id)
+                            <?php $user_like = true; ?>
+                            @endif
+
+                        @endforeach
+                        @if($user_like)
+                        <img style="width:20px" src="{{ asset('icons/heart-rojo.png') }}" class="btn-dislike">
+
+                        @else
+                        <img style="width:20px" src="{{ asset('icons/heart-gris.png') }}" class="btn-like">
+
+                        @endif
+                        {{ count($image->likes) }}
+
                     </div>
 
 
