@@ -58,6 +58,24 @@
                                 Enviar
                             </button>
                         </form>
+                        <hr>
+
+                        @foreach ($image->comments as $comment)
+                        <div class="comment">
+                            <span class="nickname">{{ '@'.$comment->user->nick }}</span>
+                            <span class="nickname-date">{{ ' | '.\FormatTime::LongTimeFilter($comment->created_at) }}</span>
+                            <p>{{ $comment->content }}
+
+                            @if (Auth::check() && ($comment->user_id == Auth::user()->id || $comment->image->user_id == Auth::user()->id))
+
+                            <a href="{{ route('comment.delete', ['id' => $comment->id]) }}" class="btn btn-sm btn-danger">
+                                🗑️
+                            </a>
+                        </p>
+                                @endif
+                            </div>
+
+                        @endforeach
                     </div>
 
                     </a>

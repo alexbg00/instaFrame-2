@@ -34,6 +34,23 @@ class commentController extends Controller
 
         return redirect()->route('image.detail', ['id' => $image_id])
                             ->with(['message' => '¡Tu comentario ha sido publicado!']);
+    }
 
+
+        public function delete($id){
+            //Accedemos a los datos del usuario identificado
+            $user = \Auth::user();
+            //Buscamos los comentarios de dicho usuario logeado
+            $comment = Comment::find($id);
+
+            //Comprobamos si el usuario logeado es el dueño del comentario o de la imagen
+            if($user && ($comment->user_id == $user->id || $comment->image->user_id == $user->id)){
+                $comment->delete();
+                return redirect()->route('image.detail', ['id' => $comment->image->id])
+                            ->with(['message' => '¡Comentario eliminado correctamente!']);
+        }else{
+            return redirect()->route('image.detail', ['id' => $comment->image->id])
+                            ->with(['message' => '¡El comentario no se ha podido eliminar!']);
+        }
     }
 }
