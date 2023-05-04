@@ -12,7 +12,7 @@
                         <img src="data:image/png;base64,{{ $image->user->image }}"
                             style="width: 3em; height:3em; border-radius:900px; overflow:hidden"
                             class="img-fluid img-thumbnail">
-                        <a href="{{ route('image.detail', ['id' => $image->id]) }}" style="color: #444; text-decoration: none">
+                        <a href="{{ route('profile', ['id'=> $image->user->id]) }}" style="color: #444; text-decoration: none">
                         {{ $image->user->name." " . $image->user->surname." | @". $image->user->nick }}
                     </p>
                         </a>
@@ -38,10 +38,10 @@
 
                         @endforeach
                         @if($user_like)
-                        <img style="width:20px" src="{{ asset('icons/heart-rojo.png') }}" class="btn-dislike">
+                        <img style="width:20px; cursor: pointer;" src="{{ asset('icons/heart-rojo.png') }}" data-id="{{ $image->id }}" class="btn-dislike"/>
 
                         @else
-                        <img style="width:20px" src="{{ asset('icons/heart-gris.png') }}" class="btn-like">
+                        <img style="width:20px; cursor: pointer;" src="{{ asset('icons/heart-gris.png') }}" data-id="{{ $image->id }}" class="btn-like" />
 
                         @endif
                         {{ count($image->likes) }}
@@ -49,7 +49,7 @@
                     </div>
 
 
-                    <a href="" class="btn btn-sm btn-warning" style="margin:20px; margin-top:0px; margin-left:10px; padding-right:5px" >
+                    <a href="{{ route('image.detail',['id'=> $image->id]) }}" class="btn btn-sm btn-warning" style="margin:20px; margin-top:0px; margin-left:10px; padding-right:5px" >
                         Comentarios ({{ count($image->comments) }})
 
                     </a>

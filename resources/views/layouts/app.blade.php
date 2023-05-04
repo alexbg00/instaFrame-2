@@ -13,6 +13,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js%22%3E"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -61,6 +64,9 @@
                         <li class="nav-item">
                             <a href="{{ route('image.create') }}" class="nav-link">Subir Imagen</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('likes') }}" class="nav-link">Favoritos</a>
+                        </li>
                         <li>
 
                             <img src="data:image/png;base64,{{ Auth::user()->image }}" style="width: 3em; height:3em; border-radius:900px; overflow:hidden"
@@ -73,7 +79,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="">Mi perfil</a>
+                                    <a class="dropdown-item" href="{{ route('profile', ['id' => Auth::user()->id]) }}">Mi perfil</a>
                                     <a class="dropdown-item" href="{{ route('config') }}">Configuracion</a>
 
 

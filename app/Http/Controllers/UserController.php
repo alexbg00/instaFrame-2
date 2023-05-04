@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
+use App\Models\User;
 
 
 class UserController extends Controller
@@ -15,7 +16,7 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function config()
     {
         return view('user.config');
@@ -79,4 +80,12 @@ class UserController extends Controller
         $file = Storage::disk('users')->get($filename);
         return new Response($file, 200);
     }
+
+    public function profile($id){
+        $user = User::find($id);
+        return view('user.profile', [
+            'user' => $user
+        ]);
+    }
+
 }
