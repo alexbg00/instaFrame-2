@@ -5,7 +5,6 @@ url = url.split('/');
 url = url[0] + '//' + url[2];
 /* url inicial sin las / */
 
-console.log(url);
 window.addEventListener('load', function () {
 
     function like(){
