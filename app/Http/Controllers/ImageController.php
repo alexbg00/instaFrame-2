@@ -7,6 +7,8 @@ use App\Models\Image;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
+use App\Models\Comment;
+use App\Models\Like;
 
 
 
@@ -61,6 +63,42 @@ class ImageController extends Controller
         return new Response($file, 200);
     }
 
+    public function delete($id){
+        $user = \Auth::user();
+        $image = Image::find($id);
+        $comments = Comment::where('image_id', $id)->get();
+        $likes = Like::where('image_id', $id)->get();
+
+        if($user && $image->user->id == $user->id){
+            // Eliminar comentarios
+            if($comments && count($comments) >= 1){
+                foreach($comments as $comment){
+                    $comment->delete();
+                }
+            }
+
+            // Eliminar likes
+            if($likes && count($likes) >= 1){
+                foreach($likes as $like){
+                    $like->delete();
+                }
+            }
+
+            // Eliminar una imagen en base64 de la base de dato cuyo campo se llama image_path
+            Storage::disk('images')->delete($image->image_path);
+
+            // Eliminar registro de imagen
+            $image->delete();
+
+            $message = array('message' => 'La imagen se ha borrado correctamente');
+        }else{
+            $message = array('message' => 'La imagen no se ha borrado');
+        }
+
+        return redirect()->route('home')->with($message);
+
+    }
+
     public function detail($id)
     {
         $image = Image::find($id);
@@ -69,6 +107,8 @@ class ImageController extends Controller
             'image' => $image
         ]);
     }
+
+
 
 
 }

@@ -2,6 +2,70 @@
 
 
 @section('content')
+
+<script>
+    url = window.location.href;
+/* url inicial sin las / */
+url = url.split('/');
+url = url[0] + '//' + url[2];
+/* url inicial sin las / */
+
+window.addEventListener('load', function () {
+
+function like(){
+$('.btn-like').on('click',function(event){
+    event.stopPropagation();
+
+    $(this).addClass('btn-dislike').unbind('click').removeClass('btn-like');
+    $(this).attr('src', url+'/icons/heart-rojo.png');
+
+    $.ajax({
+        url: '/like/' + $(this).data('id'),
+        type: 'GET',
+        success: function (response) {
+            if (response.like) {
+                console.log('Has dado like a la publicacion');
+            } else {
+                console.log('Error al dar like');
+            }
+        }
+    });
+    dislike();
+})
+}
+like();
+
+
+
+function dislike() {
+    $('.btn-dislike').unbind('click').on('click',function(event){
+        event.stopPropagation();
+        $(this).addClass('btn-like').removeClass('btn-dislike');
+        $(this).attr('src', url+'/icons/heart-gris.png');
+
+        $.ajax({
+            url: '/dislike/' + $(this).data('id'),
+            type: 'GET',
+            success: function (response) {
+                if (response.like) {
+                    console.log('Has dado dislike a la publicacion');
+                }else{
+                    console.log('Error al dar dislike');
+                }
+            }
+        });
+        like();
+
+})
+}
+dislike();
+});
+
+
+
+
+
+</script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -55,12 +119,19 @@
 
                     </div>
 
+                    <div class="clearfix"></div>
+                    @if(Auth::user() && Auth::user()->id == $image->user->id)
+                    <div class="actions" style="margin:10px ">
+                        <a href="" class="btn btn-primary">Actualizar</a>
+                        <a href="{{ route('image.delete', ['id'=> $image->id]) }}" class="btn btn-danger">Borrar</a>
+                    </div>
+                    @endif
+
                     <br>
-                    <div class="clear-fix"></div>
-                    {{-- <a href="" class="btn btn-sm btn-warning"
-                        style="margin:20px; margin-top:0px; margin-left:10px; padding-right:5px">
-                        --}} <h2 style="margin: 20px">Comentarios ({{ count($image->comments) }})</h2>
+                    <div class="clearfix"></div>
+                    <h2 style="margin: 20px">Comentarios ({{ count($image->comments) }})</h2>
                         <hr>
+
 
                         <div style="padding: 20px">
                             <form method="POST" action="{{ route('comment.save') }}">
