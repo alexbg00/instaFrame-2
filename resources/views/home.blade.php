@@ -62,10 +62,8 @@ window.addEventListener('load', function () {
 });
 
 
-
-
-
     </script>
+    
     <div class="row justify-content-center">
         <div class="col-md-8">
             @foreach ($images as $image)

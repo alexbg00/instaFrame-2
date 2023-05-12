@@ -16,8 +16,12 @@
         <div class="col-md-8">
             <div class="profile-user">
                 @if ($user->image)
+
                 <div class="container-avatar" style="width: 200px; border-radius:900px; overflow:hidden; height:200px; float:left">
-                    <img src="data:image/png;base64,{{ $user->image }}" style="width: 100%">
+                    <img
+                    {{-- "data:image/png;base64,{{ $user->image }}" --}}
+                    src= "data:image/png;base64,{{ $user->image }}"
+                    style="width: 100%">
 
                 </div>
 

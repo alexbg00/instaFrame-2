@@ -17,7 +17,3 @@ $imagen = Auth::user()->image;
 </div>
 @endif
 
-<style>
-
-
-</style>

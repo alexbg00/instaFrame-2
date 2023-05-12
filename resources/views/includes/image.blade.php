@@ -18,6 +18,7 @@
             <span class="nickname-date">{{ ' | '.\FormatTime::LongTimeFilter($image->created_at) }}</span>
             <p>{{ $image->description }}</p>
         </div>
+        
 
         <div class="likes" style="float:left; padding-left:20px; padding:right:10px ">
             <?php $user_like = false; ?>

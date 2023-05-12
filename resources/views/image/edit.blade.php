@@ -15,15 +15,20 @@
             @endif
 
             <div class="card">
-                <div class="card-header">Subir nueva imagen</div>
+                <div class="card-header">Editar imagen</div>
 
             <div class="card-body">
-                <form method="POST" action="{{ route('image.save') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('image.update') }}" enctype="multipart/form-data">
                 @csrf
+
+                <input type="hidden" name="image_id" value="{{ $image->id }}">
                     <div class="form-group row">
                         <label for="image_path" class="col-md-3 col-form-label text-md-right">Imagen</label>
                             <div class="col-md-6">
-                                <input type="file" class="form-control" name="image_path" id="image_path" required>
+
+                                <input type="file" class="form-control" name="image_path" id="image_path">
+                                {{-- visualizar la imagen a editar --}}
+
 
                                 @if ($errors->has('image_path'))
                                     <span class="invalid-feedback" role="alert">
@@ -37,7 +42,7 @@
                     <div class="form-group row">
                         <label for="description" class="col-md-3 col-form-label text-md-right">Descripcion</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" name="description" id="description" required></textarea>
+                                <textarea class="form-control" name="description" id="description" required>{{ $image->description }}</textarea>
 
                                 @if ($errors->has('description'))
                                     <span class="invalid-feedback" role="alert">
@@ -73,7 +78,7 @@
                     <br>
                     <div class="form-group row">
                             <div class="col-md-6 offset-md-3">
-                                <input type="submit" class="btn btn-primary" value="Subir imagen">
+                                <input type="submit" class="btn btn-primary" value="Actualizar imagen">
                             </div>
                     </div>
 
@@ -86,19 +91,6 @@
         </div>
     </div>
 </div>
-<style>
-    .filter-normal{
-        filter: none;
-    }
-
-    .filter-sepia{
-        filter: sepia(100%);
-    }
-
-    .filter-negativo{
-        filter: invert(100%);
-    }
-</style>
 
 <script>
     function previewImage(event) {
@@ -113,19 +105,6 @@
 
     document.getElementById('image_path').addEventListener('change', previewImage);
 
-    function hadleChangeFilter(){
-        const filter = document.getElementById('filtro').value;
-        const preview = document.getElementById('preview');
-
-        if(filter == 'sepia'){
-            preview.className = 'filter-sepia';
-        }else if(filter == 'negativo'){
-            preview.className = 'filter-negativo';
-        }else{
-            preview.className = 'filter-normal';
-        }
-
-    }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

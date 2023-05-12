@@ -63,6 +63,8 @@ class ImageController extends Controller
         return new Response($file, 200);
     }
 
+
+
     public function delete($id){
         $user = \Auth::user();
         $image = Image::find($id);
@@ -83,6 +85,7 @@ class ImageController extends Controller
                     $like->delete();
                 }
             }
+
 
             // Eliminar una imagen en base64 de la base de dato cuyo campo se llama image_path
             Storage::disk('images')->delete($image->image_path);
@@ -107,6 +110,57 @@ class ImageController extends Controller
             'image' => $image
         ]);
     }
+
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        $image = Image::find($id);
+
+        if($user && $image && $image->user->id == $user->id){
+            return view('image.edit', [
+                'image' => $image
+            ]);
+        }else{
+            return redirect()->route('home');
+        }
+    }
+
+    public function update(Request $request){
+
+        $validate = $this->validate($request, [
+            'description' => 'required',
+            'image_path' => 'image'
+        ]);
+
+        $image_id = $request->input('image_id');
+        $image_path = $request->file('image_path');
+        $description = $request->input('description');
+
+        // Conseguir objeto image
+        $image = Image::find($image_id);
+        $image->description = $description;
+
+        if($image_id){
+            $image = Image::find($image_id);
+            $image->description = $description;
+
+            // Subir la imagen en base64
+            $image_path = $request->file('image_path');
+            if ($image_path) {
+                $image_base64 = base64_encode(File::get($image_path));
+                $image->image_path = $image_base64;
+            }
+
+            $image->update();
+
+            return redirect()->route('image.detail', ['id' => $image_id])
+                             ->with(['message' => 'Imagen actualizada con éxito']);
+
+
+
+    }
+
+}
 
 
 

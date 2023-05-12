@@ -122,57 +122,85 @@ dislike();
                     <div class="clearfix"></div>
                     @if(Auth::user() && Auth::user()->id == $image->user->id)
                     <div class="actions" style="margin:10px ">
-                        <a href="" class="btn btn-primary">Actualizar</a>
-                        <a href="{{ route('image.delete', ['id'=> $image->id]) }}" class="btn btn-danger">Borrar</a>
+                        <a href="{{ route('image.edit', ['id' => $image->id]) }}" class="btn btn-primary">Actualizar</a>
+                        
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                           Eliminar
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">¿Estas seguro de eliminar la imagen?</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        Si eliminas esta imagen no podras recuperarla, ¿Estas seguro?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <a href="{{ route('image.delete', ['id'=> $image->id]) }}" class="btn btn-danger">Borrar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     @endif
 
                     <br>
                     <div class="clearfix"></div>
                     <h2 style="margin: 20px">Comentarios ({{ count($image->comments) }})</h2>
+                    <hr>
+
+
+                    <div style="padding: 20px">
+                        <form method="POST" action="{{ route('comment.save') }}">
+                            @csrf
+
+                            <input type="hidden" name="image_id" value="{{ $image->id }}" />
+                            <p>
+                                <textarea class="form-control" name="content" required></textarea>
+                                @if($errors->has('content'))
+                                <span role="alert">
+                                    <strong>{{ $errors->first('content') }}</strong>
+                                </span>
+                                @endif
+                            </p>
+
+                            <button type="submit" class="btn btn-success">
+                                Enviar
+                            </button>
+                        </form>
                         <hr>
 
+                        @foreach ($image->comments as $comment)
+                        <div class="comment">
+                            <span class="nickname">{{ '@'.$comment->user->nick }}</span>
+                            <span class="nickname-date">{{ ' | '.\FormatTime::LongTimeFilter($comment->created_at)
+                                }}</span>
+                            <p>{{ $comment->content }}
 
-                        <div style="padding: 20px">
-                            <form method="POST" action="{{ route('comment.save') }}">
-                                @csrf
+                                @if (Auth::check() && ($comment->user_id == Auth::user()->id ||
+                                $comment->image->user_id == Auth::user()->id))
 
-                                <input type="hidden" name="image_id" value="{{ $image->id }}" />
-                                <p>
-                                    <textarea class="form-control" name="content" required></textarea>
-                                    @if($errors->has('content'))
-                                    <span role="alert">
-                                        <strong>{{ $errors->first('content') }}</strong>
-                                    </span>
-                                    @endif
-                                </p>
-
-                                <button type="submit" class="btn btn-success">
-                                    Enviar
-                                </button>
-                            </form>
-                            <hr>
-
-                            @foreach ($image->comments as $comment)
-                            <div class="comment">
-                                <span class="nickname">{{ '@'.$comment->user->nick }}</span>
-                                <span class="nickname-date">{{ ' | '.\FormatTime::LongTimeFilter($comment->created_at)
-                                    }}</span>
-                                <p>{{ $comment->content }}
-
-                                    @if (Auth::check() && ($comment->user_id == Auth::user()->id ||
-                                    $comment->image->user_id == Auth::user()->id))
-
-                                    <a href="{{ route('comment.delete', ['id' => $comment->id]) }}"
-                                        class="btn btn-sm btn-danger">
-                                        🗑️
-                                    </a>
-                                </p>
-                                @endif
-                            </div>
-
-                            @endforeach
+                                <a href="{{ route('comment.delete', ['id' => $comment->id]) }}"
+                                    class="btn btn-sm btn-danger">
+                                    🗑️
+                                </a>
+                            </p>
+                            @endif
                         </div>
+
+                        @endforeach
+                    </div>
 
                     </a>
                 </div>
