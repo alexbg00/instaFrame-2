@@ -2,6 +2,12 @@
 
 
 @section('content')
+<style>
+    .invisible-link {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
 <div class="container">
     <script>
         url = window.location.href;
@@ -63,7 +69,7 @@ window.addEventListener('load', function () {
 
 
     </script>
-    
+
     <div class="row justify-content-center">
         <div class="col-md-8">
             @foreach ($images as $image)
@@ -73,13 +79,19 @@ window.addEventListener('load', function () {
                         <img src="data:image/png;base64,{{ $image->user->image }}"
                             style="width: 3em; height:3em; border-radius:900px; overflow:hidden"
                             class="img-fluid img-thumbnail">
-                        <a href="{{ route('profile', ['id'=> $image->user->id]) }}" style="color: #444; text-decoration: none">
-                        {{ $image->user->name." " . $image->user->surname." | @". $image->user->nick }}
+                        <a href="{{ route('profile', ['id'=> $image->user->id]) }}"
+                            style="color: #444; text-decoration: none">
+                            {{ $image->user->name." " . $image->user->surname." | @". $image->user->nick }}
                     </p>
-                        </a>
+                    </a>
+
+
+
                     <div class="card-body">
-                        <img src="data:image/png;base64,{{ $image->image_path }}"
-                            style="max-height:400px; overflow:hidden; width:100%; " class="img-fluid img-thumbnail">
+                        <a href="{{ route('image.detail', ['id' => $image->id]) }}" class="invisible-link">
+                            <img src="data:image/png;base64,{{ $image->image_path }}"
+                                style="max-height:400px; overflow:hidden; width:100%;" class="img-fluid img-thumbnail">
+                        </a>
                     </div>
 
                     <div class="description" style="padding:20px; padding-bottom:0px;">
@@ -93,16 +105,18 @@ window.addEventListener('load', function () {
 
                         @foreach ($image->likes as $like)
 
-                            @if($like->user->id == Auth::user()->id)
-                            <?php $user_like = true; ?>
-                            @endif
+                        @if($like->user->id == Auth::user()->id)
+                        <?php $user_like = true; ?>
+                        @endif
 
                         @endforeach
                         @if($user_like)
-                        <img style="width:20px; cursor: pointer;" src="{{ asset('icons/heart-rojo.png') }}" data-id="{{ $image->id }}" class="btn-dislike"/>
+                        <img style="width:20px; cursor: pointer;" src="{{ asset('icons/heart-rojo.png') }}"
+                            data-id="{{ $image->id }}" class="btn-dislike" />
 
                         @else
-                        <img style="width:20px; cursor: pointer;" src="{{ asset('icons/heart-gris.png') }}" data-id="{{ $image->id }}" class="btn-like" />
+                        <img style="width:20px; cursor: pointer;" src="{{ asset('icons/heart-gris.png') }}"
+                            data-id="{{ $image->id }}" class="btn-like" />
 
                         @endif
                         {{ count($image->likes) }}
@@ -110,7 +124,8 @@ window.addEventListener('load', function () {
                     </div>
 
 
-                    <a href="{{ route('image.detail',['id'=> $image->id]) }}" class="btn btn-sm btn-warning" style="margin:20px; margin-top:0px; margin-left:10px; padding-right:5px" >
+                    <a href="{{ route('image.detail',['id'=> $image->id]) }}" class="btn btn-sm btn-warning"
+                        style="margin:20px; margin-top:0px; margin-left:10px; padding-right:5px">
                         Comentarios ({{ count($image->comments) }})
 
                     </a>
@@ -118,13 +133,13 @@ window.addEventListener('load', function () {
             </div>
             @endforeach
 
+        </div>
+        {{-- poner paginacion con estilos --}}
+        <div class="clearfix"></div>
+        {{ $images->links() }}
+        {{-- traducir al español el paginate --}}
+
+
     </div>
-    {{-- poner paginacion con estilos --}}
-    <div class="clearfix"></div>
-    {{ $images->links() }}
-    {{-- traducir al español el paginate --}}
 
-
-</div>
-
-@endsection
+    @endsection

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Response;
 use App\Models\User;
+use App\Models\Image;
 
 
 class UserController extends Controller
@@ -16,6 +17,8 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
+
+
 
     public function config()
     {
@@ -76,10 +79,16 @@ class UserController extends Controller
 
         return redirect()->route('config')->with(['message' => 'Usuario actualizado correctamente']);
     }
+
+
+
+
     public function getImage($filename){
         $file = Storage::disk('users')->get($filename);
         return new Response($file, 200);
     }
+
+    /*  */
 
     public function profile($id){
         $user = User::find($id);
@@ -87,5 +96,21 @@ class UserController extends Controller
             'user' => $user
         ]);
     }
+
+    public function index(){
+        $users = User::orderBy('id', 'desc')->simplePaginate(5);
+        $images = Image::orderBy('id', 'desc')->simplePaginate(5);
+
+        return view('user.index', [
+            'users' => $users,
+            'images' => $images
+
+
+        ]);
+    }
+
+
+
+
 
 }

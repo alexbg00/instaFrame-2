@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Image;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,4 +40,4 @@ Route::get('/perfil/{id}', [App\Http\Controllers\UserController::class, 'profile
 Route::get('/image/delete/{id}', [App\Http\Controllers\ImageController::class, 'delete'])->name('image.delete');
 Route::get('/image/edit/{id}', [App\Http\Controllers\ImageController::class, 'edit'])->name('image.edit');
 Route::post('/image/update', [App\Http\Controllers\ImageController::class, 'update'])->name('image.update');
-
+Route::get('/gente', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');

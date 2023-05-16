@@ -8,6 +8,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="/icons/icono.png">
 
     <title>{{ config('app.name', 'InstaFrame') }}</title>
 
@@ -68,6 +69,8 @@
                         <li class="nav-item">
                             <a href="{{ route('likes') }}" class="nav-link">Favoritos</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('user.index') }}" class="nav-link">Usuarios</a>
                         <li>
 
                             <img src="data:image/png;base64,{{ Auth::user()->image }}" style="width: 3em; height:3em; border-radius:900px; overflow:hidden"

@@ -9,7 +9,7 @@ $imagen = Auth::user()->image;
     <div class="col-md-6">
         <div class="card" style="width: 18rem;">
             <div class="container-avatar">
-            <img src="data:image/png;base64,{{ $imagen }}" class="card-img-top" alt="...">
+            <img src="data:image/png;base64,{{ $imagen }}" class="card-img-top" alt="Foto de perfil">
             </div>
         </div>
     </div>
