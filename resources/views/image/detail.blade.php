@@ -123,7 +123,7 @@ dislike();
                     @if(Auth::user() && Auth::user()->id == $image->user->id)
                     <div class="actions" style="margin:10px ">
                         <a href="{{ route('image.edit', ['id' => $image->id]) }}" class="btn btn-primary">Actualizar</a>
-                        
+
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
